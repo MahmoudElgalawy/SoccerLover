@@ -7,22 +7,25 @@
 
 import Foundation
 
+struct CompetitionsModel: Codable {
+    let count: Int
+    let competitions: [Competition]
+}
 
-
-struct CompetitionsModel : Codable {
-    
+struct Competition : Codable {
     let id: Int
     let name: String
     let code: String?
     let area: Area
     let numberOfAvailableSeasons: Int
     let currentSeason:Season?
+    let emblem: String?
 }
 
 struct Area: Codable{
     let id: Int
     let name: String
-    let ensignUrl: String?
+    let flag: String?
 }
 
 struct Season: Codable {
@@ -30,4 +33,19 @@ struct Season: Codable {
     let startDate: String
     let endDate: String
     let currentMatchday: Int?
+    let winner: Winner?
+}
+
+struct Winner: Codable {
+    let id: Int
+    let name: String
+    let shortName: String
+    let tla: String
+    let crest: String
+    let address: String?
+    let website: String?
+    let founded: Int?
+    let clubColors: String?
+    let venue: String?
+    let lastUpdated: String?
 }
