@@ -21,6 +21,8 @@
 		1E76F5EA2CECA28300A7EB6E /* FootballAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E76F5E92CECA28300A7EB6E /* FootballAPI.swift */; };
 		1E76F5EC2CECACC200A7EB6E /* errorEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E76F5EB2CECACC200A7EB6E /* errorEnum.swift */; };
 		1E76F5F22CECB71900A7EB6E /* CompetitionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E76F5F12CECB71900A7EB6E /* CompetitionsViewModel.swift */; };
+		1E76F5F52CECE74100A7EB6E /* competitionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E76F5F32CECE74100A7EB6E /* competitionsCell.swift */; };
+		1E76F5F62CECE74100A7EB6E /* competitionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E76F5F42CECE74100A7EB6E /* competitionsCell.xib */; };
 		2CC34013556660A652951336 /* Pods_SoccerLover.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4E9462BDE3F8428D10F53B /* Pods_SoccerLover.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,8 @@
 		1E76F5E92CECA28300A7EB6E /* FootballAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootballAPI.swift; sourceTree = "<group>"; };
 		1E76F5EB2CECACC200A7EB6E /* errorEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = errorEnum.swift; sourceTree = "<group>"; };
 		1E76F5F12CECB71900A7EB6E /* CompetitionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionsViewModel.swift; sourceTree = "<group>"; };
+		1E76F5F32CECE74100A7EB6E /* competitionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = competitionsCell.swift; sourceTree = "<group>"; };
+		1E76F5F42CECE74100A7EB6E /* competitionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = competitionsCell.xib; sourceTree = "<group>"; };
 		2582675D7B5FD31774360C44 /* Pods-SoccerLover.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoccerLover.debug.xcconfig"; path = "Target Support Files/Pods-SoccerLover/Pods-SoccerLover.debug.xcconfig"; sourceTree = "<group>"; };
 		4B4E9462BDE3F8428D10F53B /* Pods_SoccerLover.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoccerLover.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -132,8 +136,8 @@
 		1E76F5ED2CECB69400A7EB6E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				1E76F5EF2CECB6D800A7EB6E /* Views */,
-				1E76F5F02CECB6E300A7EB6E /* ViewModels */,
+				1E76F5F82CED1C2600A7EB6E /* CompetitionDetails */,
+				1E76F5F72CED1BF500A7EB6E /* Competitions */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -142,6 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				1E76F5CA2CEC185500A7EB6E /* CompetitionsVC.swift */,
+				1E76F5F32CECE74100A7EB6E /* competitionsCell.swift */,
+				1E76F5F42CECE74100A7EB6E /* competitionsCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -152,6 +158,22 @@
 				1E76F5F12CECB71900A7EB6E /* CompetitionsViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		1E76F5F72CED1BF500A7EB6E /* Competitions */ = {
+			isa = PBXGroup;
+			children = (
+				1E76F5EF2CECB6D800A7EB6E /* Views */,
+				1E76F5F02CECB6E300A7EB6E /* ViewModels */,
+			);
+			path = Competitions;
+			sourceTree = "<group>";
+		};
+		1E76F5F82CED1C2600A7EB6E /* CompetitionDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CompetitionDetails;
 			sourceTree = "<group>";
 		};
 		7CA80576C554E4286A42CAFC /* Frameworks */ = {
@@ -234,6 +256,7 @@
 				1E76F5D62CEC185B00A7EB6E /* LaunchScreen.storyboard in Resources */,
 				1E76F5D32CEC185B00A7EB6E /* Assets.xcassets in Resources */,
 				1E76F5CE2CEC185500A7EB6E /* Main.storyboard in Resources */,
+				1E76F5F62CECE74100A7EB6E /* competitionsCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +312,7 @@
 				1E76F5DF2CEC189200A7EB6E /* CompetitionsModel.swift in Sources */,
 				1E76F5EA2CECA28300A7EB6E /* FootballAPI.swift in Sources */,
 				1E76F5CB2CEC185500A7EB6E /* CompetitionsVC.swift in Sources */,
+				1E76F5F52CECE74100A7EB6E /* competitionsCell.swift in Sources */,
 				1E76F5EC2CECACC200A7EB6E /* errorEnum.swift in Sources */,
 				1E76F5E12CEC1ABF00A7EB6E /* CompetitionsDetails.swift in Sources */,
 				1E76F5E72CEC9BC600A7EB6E /* RemoteService.swift in Sources */,
