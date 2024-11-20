@@ -8,47 +8,40 @@
 import Foundation
 
 
-struct CompetitionsDetails: Codable{
-    let competition: CompetitionInfo
-    let matches: [Match]
-}
-
-struct CompetitionInfo: Codable{
-    let id: Int
+struct Competition2: Codable {
+    let id: Int?
     let name: String
-    let area: Area
-    let code: String?
-    let plan: String?
+    let type: String
     let emblem: String?
 }
 
+struct Team: Codable {
+    let id: Int?
+    let name: String?
+    let crest: String?
+}
+
+struct Score: Codable {
+    let fullTime: ScoreDetails
+    let halfTime: ScoreDetails
+}
+
+struct ScoreDetails: Codable {
+    let home: Int?
+    let away: Int?
+}
+
 struct Match: Codable {
+    let competition: Competition2
     let id: Int
-    let utcDate: String
-    let season: Season
-    let status: String
-    let Matchday: Int?
+    let status: String?
+    let attendance: Int?
     let homeTeam: Team
     let awayTeam: Team
     let score: Score
 }
 
-struct Team: Codable {
-    let id: Int
-    let name: String
-    let shortName: String?
-    let crest: String?
-}
-
-struct Score: Codable{
-    let winner: String?
-    let fullTime: MatchScore
-    let halfTime: MatchScore
-    let extraTime: MatchScore?
-    let penalties: MatchScore?
-}
-
-struct MatchScore: Codable {
-    let home: Int?
-    let away: Int?
+struct DataResponse: Codable {
+    let competition: Competition2
+    let matches: [Match]
 }
