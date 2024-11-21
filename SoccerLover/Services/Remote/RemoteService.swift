@@ -33,16 +33,8 @@ class NetworkManager: RemoteService {
                                                    let decodedData = try JSONDecoder().decode(T.self, from: data)
                                                    observer.onNext(decodedData)
                                                    observer.onCompleted()
-                                               } catch let DecodingError.dataCorrupted(context) {
-                                                   print("Data corrupted: \(context.debugDescription)")
-                                               } catch let DecodingError.keyNotFound(key, context) {
-                                                   print("Key '\(key)' not found: \(context.debugDescription)")
-                                               } catch let DecodingError.typeMismatch(type, context) {
-                                                   print("Type '\(type)' mismatch: \(context.debugDescription)")
-                                               } catch let DecodingError.valueNotFound(value, context) {
-                                                   print("Value '\(value)' not found: \(context.debugDescription)")
-                                               } catch {
-                                                   print("Decoding failed: \(error.localizedDescription)")
+                                               } catch{
+                                                   observer.onError(SoccerError.serializationError)
                                                }
                                            }
                                            case .failure(_):

@@ -24,7 +24,7 @@ class matchesCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    func configureCell(match:Match) {
+    func configureCell(match:MatchDetails) {
         score.text = "\(match.score.fullTime.home ?? 1 ) - \(match.score.fullTime.away ?? 1)"
         status.text = match.status
         nameHome.text = match.homeTeam.name ?? "portsMouth"

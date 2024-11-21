@@ -12,11 +12,14 @@ struct MatchDetailsResponse: Codable{
 }
 
 struct MatchDetails: Codable {
-    let id: Int
+    let area: Area
+    let competition: Competition2
+    let season: Season
+    let id: Int?
     let utcDate: String
     let status: String
     let matchday: Int?
-    let venue: String
+    let venue: String?
     let homeTeam: Team
     let awayTeam: Team
     let score: Score
@@ -28,4 +31,12 @@ struct Referee: Codable{
     let name: String
     let nationality: String?
 }
+
+struct Area: Codable {
+    let id: Int
+    let name: String
+    let code: String
+    let flag: String?
+}
+
 

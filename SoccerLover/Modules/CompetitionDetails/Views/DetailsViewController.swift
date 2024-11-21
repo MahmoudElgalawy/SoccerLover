@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import CoreImage
 
 class DetailsViewController: UIViewController {
     
@@ -19,19 +20,27 @@ class DetailsViewController: UIViewController {
     var viewModel:DetailsVMProtocol?
     let disposeBag = DisposeBag()
     var indicator : UIActivityIndicatorView?
-
+    var back:UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //viewModel = CompetitionDetailsViewModel(remote: NetworkManager.shared)
-        viewModel?.fetchCompetitionDetails()
         matchesTable.delegate = self
         configureTableView()
         drawTable()
         checkData()
         setIndicator()
+        back = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.backward"), style: .plain, target: self, action: #selector(backButton))
+        
+        if let originalImage = UIImage(named: "photo1") {
+            let blurredImage = applyBlurEffect(to: originalImage, blurRadius: 10)
+            imgBack.image = blurredImage
+        }
+
     }
 
 }
+
+// Mark:- Draw Table
 
 extension DetailsViewController: UITableViewDelegate{
     func checkData(){
@@ -59,7 +68,6 @@ extension DetailsViewController: UITableViewDelegate{
             self.nameCompetition.text = "Name: \(item.competition.name)"
             guard let imgUrl = item.competition.emblem else{return}
             self.imgCompetition.kf.setImage(with: URL(string: imgUrl),placeholder: UIImage(named:"trophy1"))
-            self.matchesTable.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         }.disposed(by: disposeBag)
         fetchData()
     }
@@ -85,7 +93,7 @@ extension DetailsViewController: UITableViewDelegate{
                     }
                 })
                 .disposed(by: disposeBag)
-       // subScribeToTable()
+       subScribeToTable()
     }
     func setIndicator(){
         indicator = UIActivityIndicatorView(style: .large)
@@ -97,6 +105,43 @@ extension DetailsViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 125
     }
+    func applyBlurEffect(to image: UIImage, blurRadius: Double) -> UIImage? {
+        guard let ciImage = CIImage(image: image) else { return nil }
+        let filter = CIFilter(name: "CIGaussianBlur")
+        filter?.setValue(ciImage, forKey: kCIInputImageKey)
+        filter?.setValue(blurRadius, forKey: kCIInputRadiusKey)
+        guard let outputImage = filter?.outputImage else { return nil }
+        let context = CIContext()
+        if let cgImage = context.createCGImage(outputImage, from: ciImage.extent) {
+            return UIImage(cgImage: cgImage)
+        }
+        return nil
+    }
 
 }
 
+// Mark:- Table Delegations
+
+extension DetailsViewController{
+    func subScribeToTable() {
+        matchesTable.rx.modelSelected(MatchDetails.self).subscribe(onNext: { [weak self] match in
+            let MatchesVC  = self?.storyboard?.instantiateViewController(identifier: "MatchesViewController") as! MatchesViewController
+            MatchesVC.navigationItem.title = "SoccerLover"
+            MatchesVC.navigationController?.navigationBar.backgroundColor = UIColor(named: "Color1")
+            MatchesVC.navigationItem.leftBarButtonItem = self?.back
+            MatchesVC.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+            
+            MatchesVC.viewModel = MatchesViewModel(remote: NetworkManager.shared)
+            guard let id = match.id else{return}
+            MatchesVC.viewModel?.matchId = id
+            self?.navigationController?.pushViewController(MatchesVC, animated: true)
+        })
+        .disposed(by: disposeBag)
+    }
+    @objc func backButton() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.popViewController(animated: true)
+       }
+}
+
+//
