@@ -50,7 +50,6 @@ extension CompetitionsVC{
     func drawTable(){
         viewModel.competitionsDriver.drive(competitionsTable.rx.items(cellIdentifier: "competitionsCell")){row,item,cell in
             (cell as? competitionsCell)?.configureCell(competition: item)
-            print("\(item.name) + \(item.id)")
         }.disposed(by: disposeBag)
         fetchData()
     }

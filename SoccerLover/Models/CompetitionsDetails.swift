@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Competition2: Codable {
     let id: Int?
     let name: String
@@ -43,5 +42,5 @@ struct Match: Codable {
 
 struct DataResponse: Codable {
     let competition: Competition2
-    let matches: [Match]
+    let matches: [MatchDetails]
 }

@@ -11,17 +11,15 @@ import RxSwift
 
 protocol DetailsVMProtocol{
     func fetchCompetitionDetails()
-    var matchesDriver: Driver<[Match]> { get }
+    var matchesDriver: Driver<[MatchDetails]> { get }
     var dataState: ((Bool)-> Void)?{get set}
     var competitionId: Int?{get set}
-    var competition:Competition2?{get set}
 }
 class CompetitionDetailsViewModel: DetailsVMProtocol {
     var dataState: ((Bool) -> Void)?
     let remote: RemoteService!
-    var competition:Competition2?
-    private let competitionsSubject = PublishSubject<[Match]>()
-    var matchesDriver: Driver<[Match]> {
+    private let competitionsSubject = PublishSubject<[MatchDetails]>()
+    var matchesDriver: Driver<[MatchDetails]> {
         return competitionsSubject
                     .asDriver(onErrorJustReturn: [])
     }
