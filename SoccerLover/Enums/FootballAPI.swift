@@ -7,12 +7,11 @@
 
 import Foundation
 
-
 enum FootballAPI{
     case getAllCompetition
     case getCompetitionsDetails(competitionId: Int)
     case getMatchDetails(matchId: Int)
-
+    
     private var baseURL: String {
         return "https://api.football-data.org"
     }

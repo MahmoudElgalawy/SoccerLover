@@ -21,9 +21,9 @@ class CompetitionDetailsViewModel: DetailsVMProtocol {
     private let competitionsSubject = PublishSubject<[MatchDetails]>()
     var matchesDriver: Driver<[MatchDetails]> {
         return competitionsSubject
-                    .asDriver(onErrorJustReturn: [])
+            .asDriver(onErrorJustReturn: [])
     }
-
+    
     private let disposeBag = DisposeBag()
     var competitionId: Int?
     

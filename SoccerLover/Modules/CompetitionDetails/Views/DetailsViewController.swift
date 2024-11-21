@@ -30,14 +30,13 @@ class DetailsViewController: UIViewController {
         checkData()
         setIndicator()
         back = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.backward"), style: .plain, target: self, action: #selector(backButton))
-        
         if let originalImage = UIImage(named: "photo1") {
             let blurredImage = applyBlurEffect(to: originalImage, blurRadius: 10)
             imgBack.image = blurredImage
         }
-
+        
     }
-
+    
 }
 
 // Mark:- Draw Table
@@ -45,21 +44,21 @@ class DetailsViewController: UIViewController {
 extension DetailsViewController: UITableViewDelegate{
     func checkData(){
         viewModel?.dataState = { [weak self] isSuccess in
-                    DispatchQueue.main.async {
-                        self?.indicator?.stopAnimating()
-                        if isSuccess {
-                            self?.imgNodata.isHidden = true
-                            self?.matchesTable.isHidden = false
-                            self?.imgBack.isHidden = false
-                            self?.indicator?.stopAnimating()
-                        } else {
-                            self?.imgNodata.isHidden = false
-                            self?.matchesTable.isHidden = true
-                            self?.imgBack.isHidden = true
-                            self?.indicator?.stopAnimating()
-                        }
-                    }
+            DispatchQueue.main.async {
+                self?.indicator?.stopAnimating()
+                if isSuccess {
+                    self?.imgNodata.isHidden = true
+                    self?.matchesTable.isHidden = false
+                    self?.imgBack.isHidden = false
+                    self?.indicator?.stopAnimating()
+                } else {
+                    self?.imgNodata.isHidden = false
+                    self?.matchesTable.isHidden = true
+                    self?.imgBack.isHidden = true
+                    self?.indicator?.stopAnimating()
                 }
+            }
+        }
     }
     func drawTable(){
         viewModel?.matchesDriver.drive(matchesTable.rx.items(cellIdentifier: "matchesCell")){row,item,cell in
@@ -78,22 +77,22 @@ extension DetailsViewController: UITableViewDelegate{
     func fetchData(){
         viewModel?.fetchCompetitionDetails()
         viewModel?.matchesDriver
-                 .drive(onNext: { [weak self] Matches in
-                    DispatchQueue.main.async {
-                        self?.indicator?.stopAnimating()
-                        if Matches.isEmpty {
-                            self?.imgNodata.isHidden = false
-                            self?.matchesTable.isHidden = true
-                            self?.imgBack.isHidden = true
-                        } else {
-                            self?.imgNodata.isHidden = true
-                            self?.matchesTable.isHidden = false
-                            self?.imgBack.isHidden = false
-                        }
+            .drive(onNext: { [weak self] Matches in
+                DispatchQueue.main.async {
+                    self?.indicator?.stopAnimating()
+                    if Matches.isEmpty {
+                        self?.imgNodata.isHidden = false
+                        self?.matchesTable.isHidden = true
+                        self?.imgBack.isHidden = true
+                    } else {
+                        self?.imgNodata.isHidden = true
+                        self?.matchesTable.isHidden = false
+                        self?.imgBack.isHidden = false
                     }
-                })
-                .disposed(by: disposeBag)
-       subScribeToTable()
+                }
+            })
+            .disposed(by: disposeBag)
+        subScribeToTable()
     }
     func setIndicator(){
         indicator = UIActivityIndicatorView(style: .large)
@@ -117,7 +116,7 @@ extension DetailsViewController: UITableViewDelegate{
         }
         return nil
     }
-
+    
 }
 
 // Mark:- Table Delegations
@@ -141,7 +140,6 @@ extension DetailsViewController{
     @objc func backButton() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.popViewController(animated: true)
-       }
+    }
 }
 
-//

@@ -12,9 +12,9 @@ struct MatchDetailsResponse: Codable{
 }
 
 struct MatchDetails: Codable {
-    let area: Area
+    let area: Area?
     let competition: Competition2
-    let season: Season
+    let season: SeasonModel
     let id: Int?
     let utcDate: String
     let status: String
@@ -23,7 +23,7 @@ struct MatchDetails: Codable {
     let homeTeam: Team
     let awayTeam: Team
     let score: Score
-    let referees: [Referee]
+    let referees: [Referee]?
 }
 
 struct Referee: Codable{

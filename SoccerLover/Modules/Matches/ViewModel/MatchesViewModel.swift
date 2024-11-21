@@ -21,7 +21,7 @@ class MatchesViewModel: MatchesProtocol {
     private let matcchesSubject = PublishSubject<MatchDetails?>()
     var matchesDriver: Driver<MatchDetails?> {
         return matcchesSubject
-                    .asDriver(onErrorJustReturn: nil)
+            .asDriver(onErrorJustReturn: nil)
     }
     private let disposeBag = DisposeBag()
     var matchId: Int?
@@ -35,7 +35,7 @@ class MatchesViewModel: MatchesProtocol {
             .subscribe(onNext: { [weak self] matchesResponse in
                 self?.matcchesSubject.onNext(matchesResponse)
                 self?.dataState?(true)
-               // print(matchesResponse)
+                // print(matchesResponse)
             }, onError: { [weak self] error in
                 self?.dataState?(false)
                 print(error.localizedDescription)

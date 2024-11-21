@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class competitionsCell: UITableViewCell {
-
+    
     @IBOutlet weak var imgCompetitions: UIImageView!
     
     @IBOutlet weak var currentMatchs: UILabel!
@@ -17,15 +17,12 @@ class competitionsCell: UITableViewCell {
     @IBOutlet weak var nameCompetition: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
+    
     func configureCell(competition: Competition){
         guard let dayMatches = competition.currentSeason?.currentMatchday else{return}
         currentMatchs.text = "Day Matches: \(dayMatches)"
