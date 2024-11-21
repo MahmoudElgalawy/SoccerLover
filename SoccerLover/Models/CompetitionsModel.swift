@@ -12,20 +12,21 @@ struct CompetitionsModel: Codable {
 }
 
 struct Competition : Codable {
-    let id: Int
+    let id: Int  
     let name: String
     let code: String?
     let numberOfAvailableSeasons: Int
     let type: String
-    let currentSeason:Season?
+    let currentSeason:SeasonModel?
     let emblem: String?
 }
 
-struct Season: Codable {
+struct SeasonModel: Codable {
     let id: Int
     let startDate: String
     let endDate: String
     let currentMatchday: Int?
 }
+
 
 

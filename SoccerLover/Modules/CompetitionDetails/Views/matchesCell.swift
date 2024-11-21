@@ -16,16 +16,16 @@ class matchesCell: UITableViewCell {
     @IBOutlet weak var imgAway: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
     }
     func configureCell(match:MatchDetails) {
-        score.text = "\(match.score.fullTime.home ?? 1 ) - \(match.score.fullTime.away ?? 1)"
+        guard let score1 = match.score.fullTime.home else{return}
+        guard let score2 = match.score.fullTime.away else{return}
+        score.text = "\(score1) - \(score2)"
         status.text = match.status
         nameHome.text = match.homeTeam.name ?? "portsMouth"
         nameAway.text = match.awayTeam.name ?? "portsMouth"

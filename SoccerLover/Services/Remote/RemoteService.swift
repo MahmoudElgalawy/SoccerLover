@@ -26,29 +26,29 @@ class NetworkManager: RemoteService {
                 .responseData { response in
                     switch response.result{
                     case .success(let data):
-                                           if data.isEmpty{
-                                               observer.onError(SoccerError.noData)
-                                           }else{
-                                               do{
-                                                   let decodedData = try JSONDecoder().decode(T.self, from: data)
-                                                   observer.onNext(decodedData)
-                                                   observer.onCompleted()
-                                               } catch{
-                                                   observer.onError(SoccerError.serializationError)
-                                               }
-                                           }
-                                           case .failure(_):
-                                           observer.onError(SoccerError.apiError)
-                                       }
-                                           
-                                   }
-                               return Disposables.create {
-                                   request.cancel()
-                               }
-                           }
-                       }
-                   }
+                        if data.isEmpty{
+                            observer.onError(SoccerError.noData)
+                        }else{
+                            do{
+                                let decodedData = try JSONDecoder().decode(T.self, from: data)
+                                observer.onNext(decodedData)
+                                observer.onCompleted()
+                            } catch{
+                                observer.onError(SoccerError.serializationError)
+                            }
+                        }
+                    case .failure(_):
+                        observer.onError(SoccerError.apiError)
+                    }
+                    
+                }
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+    }
+}
 
 
 
-    
+

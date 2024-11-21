@@ -34,7 +34,7 @@ class MatchesViewController: UIViewController {
     var indicator : UIActivityIndicatorView?
     var viewModel:MatchesProtocol?
     let disposeBag = DisposeBag()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setIndicator()
@@ -46,10 +46,10 @@ class MatchesViewController: UIViewController {
         setupImageView()
     }
     
-   
+    
 }
 
-// Mark:- Data Setup 
+// Mark:- Data Setup
 
 extension MatchesViewController{
     func fetchData(){
@@ -60,45 +60,47 @@ extension MatchesViewController{
     
     func binData(){
         viewModel?.matchesDriver
-                 .drive(onNext: { [weak self] match in
-                     DispatchQueue.main.async {
-                         self?.indicator?.stopAnimating()
-                         if match == nil {
-                             self?.view(bool:false)
-                         }else {
-                             self?.view(bool:true)
-                             self?.score.text = "\(match?.score.fullTime.home ?? 1 ) - \(match?.score.fullTime.away ?? 1)"
-                             self?.nameHome.text = match?.homeTeam.name ?? "portsMouth"
-                             self?.nameAway.text = match?.awayTeam.name ?? "portsMouth"
-                             guard let awayUrl = match?.awayTeam.crest else{return}
-                             self?.imgAway.kf.setImage(with: URL(string: awayUrl), placeholder: UIImage(named:"defaultTeam"))
-                             guard let awayUrl2 = match?.homeTeam.crest else{return}
-                             self?.imgHome.kf.setImage(with: URL(string: awayUrl2), placeholder: UIImage(named:"defaultTeam"))
-                             self?.status.text = match?.status
-                             let result = self?.extractDateAndTime(from: match?.utcDate ?? "")
-                             if let date = result?.date, let time = result?.time {
-                                 self?.time.text = time
-                                 self?.history.text = date
-                             }
-                             self?.nameCompetition.text = match?.competition.name
-                             guard let type = match?.competition.type else{return}
-                             self?.type.text = "Type: \(type)"
-                             self?.season.text = "\(match?.season.startDate ?? "2024-08-16") / \(match?.season.endDate ?? "2025-05-25")"
-                             guard let competitionUrl = match?.competition.emblem else{return}
-                             self?.competitionImg.kf.setImage(with: URL(string: competitionUrl), placeholder: UIImage(named:"trophy1"))
-                             guard let arrea = match?.area.name else{return}
-                             self?.area.text = "Area: \(arrea)"
-                             guard let flagUrl = match?.area.flag else{
-                                 return (self?.flag.image = UIImage(named: "Fifa"))!}
-                             self?.flag.kf.setImage(with: URL(string: flagUrl),placeholder: UIImage(named: "Fifa"))
-                             guard let referee = match?.referees.first?.name else{return}
-                             self?.referees.text = "referee: \(referee)"
-                             guard let nation = match?.referees.first?.nationality else{return}
-                             self?.nationality.text = "Nationality: \(nation)"
-                         }
-                     }
-                })
-                .disposed(by: disposeBag)
+            .drive(onNext: { [weak self] match in
+                DispatchQueue.main.async {
+                    self?.indicator?.stopAnimating()
+                    if match == nil {
+                        self?.view(bool:false)
+                    }else {
+                        self?.view(bool:true)
+                        guard let score1 = match?.score.fullTime.home else{return   (self?.score.text = "")!  }
+                        guard let score2 = match?.score.fullTime.away else{return (self?.score.text = "")!}
+                        self?.score.text = "\(score1) - \(score2)"
+                        self?.nameHome.text = match?.homeTeam.name ?? "portsMouth"
+                        self?.nameAway.text = match?.awayTeam.name ?? "portsMouth"
+                        guard let awayUrl = match?.awayTeam.crest else{return}
+                        self?.imgAway.kf.setImage(with: URL(string: awayUrl), placeholder: UIImage(named:"defaultTeam"))
+                        guard let awayUrl2 = match?.homeTeam.crest else{return}
+                        self?.imgHome.kf.setImage(with: URL(string: awayUrl2), placeholder: UIImage(named:"defaultTeam"))
+                        self?.status.text = match?.status
+                        let result = self?.extractDateAndTime(from: match?.utcDate ?? "")
+                        if let date = result?.date, let time = result?.time {
+                            self?.time.text = time
+                            self?.history.text = date
+                        }
+                        self?.nameCompetition.text = match?.competition.name
+                        guard let type = match?.competition.type else{return  (self?.type.text = "")!}
+                        self?.type.text = "Type: \(type)"
+                        self?.season.text = "\(match?.season.startDate ?? "2024-08-16") / \(match?.season.endDate ?? "2025-05-25")"
+                        guard let competitionUrl = match?.competition.emblem else{return}
+                        self?.competitionImg.kf.setImage(with: URL(string: competitionUrl), placeholder: UIImage(named:"trophy1"))
+                        guard let arrea = match?.area?.name else{return}
+                        self?.area.text = "Area: \(arrea)"
+                        guard let flagUrl = match?.area?.flag else{
+                            return (self?.flag.image = UIImage(named: "Fifa"))!}
+                        self?.flag.kf.setImage(with: URL(string: flagUrl),placeholder: UIImage(named: "Fifa"))
+                        guard let referee = match?.referees?.first?.name else{return}
+                        self?.referees.text = "referee: \(referee)"
+                        guard let nation = match?.referees?.first?.nationality else{return}
+                        self?.nationality.text = "Nationality: \(nation)"
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     func setIndicator(){
@@ -161,25 +163,25 @@ extension MatchesViewController{
     func setupImageView() {
         noDataImage.image = UIImage(named: "nodata")
         noDataImage.contentMode = .scaleAspectFill
-            view.addSubview(noDataImage)
+        view.addSubview(noDataImage)
         noDataImage.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                noDataImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                noDataImage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                noDataImage.widthAnchor.constraint(equalToConstant: 200),
-                noDataImage.heightAnchor.constraint(equalToConstant: 200)
-            ])
-        }
+        NSLayoutConstraint.activate([
+            noDataImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noDataImage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            noDataImage.widthAnchor.constraint(equalToConstant: 200),
+            noDataImage.heightAnchor.constraint(equalToConstant: 200)
+        ])
+    }
     func checkData(){
         viewModel?.dataState = { [weak self] isSuccess in
-                    DispatchQueue.main.async {
-                        self?.indicator?.stopAnimating()
-                        if isSuccess {
-                            self?.view(bool:true)
-                        } else {
-                            self?.view(bool:false)
-                        }
-                    }
+            DispatchQueue.main.async {
+                self?.indicator?.stopAnimating()
+                if isSuccess {
+                    self?.view(bool:true)
+                } else {
+                    self?.view(bool:false)
                 }
+            }
+        }
     }
 }

@@ -10,5 +10,7 @@ pod 'Alamofire'
 pod 'RxSwift'
 pod 'RxCocoa'
 pod 'Kingfisher', '~> 7.0'
+pod 'ReachabilitySwift'
+
 
 end
