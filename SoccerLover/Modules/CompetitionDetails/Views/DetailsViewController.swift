@@ -34,9 +34,7 @@ class DetailsViewController: UIViewController {
             let blurredImage = applyBlurEffect(to: originalImage, blurRadius: 10)
             imgBack.image = blurredImage
         }
-        
     }
-    
 }
 
 // Mark:- Draw Table
@@ -138,7 +136,6 @@ extension DetailsViewController{
         .disposed(by: disposeBag)
     }
     @objc func backButton() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.popViewController(animated: true)
     }
 }

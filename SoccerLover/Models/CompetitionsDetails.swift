@@ -7,13 +7,6 @@
 
 import Foundation
 
-struct Competition2: Codable {
-    let id: Int?
-    let name: String
-    let type: String
-    let emblem: String?
-}
-
 struct Team: Codable {
     let id: Int?
     let name: String?
@@ -30,17 +23,7 @@ struct ScoreDetails: Codable {
     let away: Int?
 }
 
-struct Match: Codable {
-    let competition: Competition2
-    let id: Int
-    let status: String?
-    let attendance: Int?
-    let homeTeam: Team
-    let awayTeam: Team
-    let score: Score
-}
-
 struct DataResponse: Codable {
-    let competition: Competition2
+    let competition: Competition
     let matches: [MatchDetails]
 }

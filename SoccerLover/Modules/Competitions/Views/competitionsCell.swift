@@ -11,7 +11,6 @@ import Kingfisher
 class competitionsCell: UITableViewCell {
     
     @IBOutlet weak var imgCompetitions: UIImageView!
-    
     @IBOutlet weak var currentMatchs: UILabel!
     @IBOutlet weak var availableSeasons: UILabel!
     @IBOutlet weak var nameCompetition: UILabel!
@@ -27,7 +26,8 @@ class competitionsCell: UITableViewCell {
         guard let dayMatches = competition.currentSeason?.currentMatchday else{return}
         currentMatchs.text = "Day Matches: \(dayMatches)"
         nameCompetition.text = competition.name
-        availableSeasons.text = "Available Seasons: \(competition.numberOfAvailableSeasons)"
+        guard let available = competition.numberOfAvailableSeasons else{return}
+        availableSeasons.text = "Available Seasons: \(available)"
         guard let imgUrl = competition.emblem else{return}
         imgCompetitions.kf.setImage(with: URL(string: imgUrl), placeholder: UIImage(named:"trophy1"))
     }

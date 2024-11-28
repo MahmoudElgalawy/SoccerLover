@@ -78,6 +78,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E283D212CF10A4600BC397B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1EBF68E42CEF38BB00B367C5 /* ConnectionTest.swift */,
+				1E76F5E82CECA25E00A7EB6E /* Enums */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		1E5E6E9B2CEE4BD7006142A1 /* Matches */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,10 +133,9 @@
 		1E76F5C52CEC185500A7EB6E /* SoccerLover */ = {
 			isa = PBXGroup;
 			children = (
+				1E283D212CF10A4600BC397B /* Utilities */,
 				1E76F5DD2CEC186A00A7EB6E /* Models */,
 				1E76F5ED2CECB69400A7EB6E /* Modules */,
-				1EBF68E32CEF388A00B367C5 /* Extensions */,
-				1E76F5E82CECA25E00A7EB6E /* Enums */,
 				1E76F5E42CEC9B9500A7EB6E /* Services */,
 				1E76F5C62CEC185500A7EB6E /* AppDelegate.swift */,
 				1E76F5C82CEC185500A7EB6E /* SceneDelegate.swift */,
@@ -246,14 +254,6 @@
 				1EBF68E12CEEC09600B367C5 /* LocalCompetetionManger.swift */,
 			);
 			path = Local;
-			sourceTree = "<group>";
-		};
-		1EBF68E32CEF388A00B367C5 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				1EBF68E42CEF38BB00B367C5 /* ConnectionTest.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		7CA80576C554E4286A42CAFC /* Frameworks */ = {

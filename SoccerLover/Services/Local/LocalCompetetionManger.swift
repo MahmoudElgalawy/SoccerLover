@@ -72,29 +72,17 @@ class CompetitionStorage: LocalService {
             let results = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
             
             for competitionObject in results {
-                let id = competitionObject.value(forKey: "num") as! Int
-                let name = competitionObject.value(forKey: "name") as! String
-                let code = competitionObject.value(forKey: "code") as? String
-                let numberOfAvailableSeasons = competitionObject.value(forKey: "numberOfAvailableSeasons") as! Int
-                let type = competitionObject.value(forKey: "type") as! String
-                let emblem = competitionObject.value(forKey: "emblem") as? String
-                
-                let seasonId = competitionObject.value(forKey: "seasonid") as? Int
-                let startDate = competitionObject.value(forKey: "startDate") as? String
-                let endDate = competitionObject.value(forKey: "endDate") as? String
-                let currentMatchday = competitionObject.value(forKey: "currentMatchday") as? Int
-                
-                let currentSeason = (seasonId != nil && startDate != nil && endDate != nil) ?
-                SeasonModel(id: seasonId!, startDate: startDate!, endDate: endDate!, currentMatchday: currentMatchday) : nil
+                let currentSeason = (competitionObject.value(forKey: "seasonid") as? Int != nil && competitionObject.value(forKey: "startDate") as? String != nil && competitionObject.value(forKey: "endDate") as? String != nil) ?
+                SeasonModel(id: competitionObject.value(forKey: "seasonid") as? Int ?? 0, startDate: competitionObject.value(forKey: "startDate") as? String ?? "", endDate: competitionObject.value(forKey: "endDate") as? String ?? "", currentMatchday: competitionObject.value(forKey: "currentMatchday") as? Int) : nil
                 
                 let competition = Competition(
-                    id: id,
-                    name: name,
-                    code: code,
-                    numberOfAvailableSeasons: numberOfAvailableSeasons,
-                    type: type,
+                    id:  competitionObject.value(forKey: "num") as! Int,
+                    name: competitionObject.value(forKey: "name") as! String,
+                    code: competitionObject.value(forKey: "code") as? String,
+                    numberOfAvailableSeasons: competitionObject.value(forKey: "numberOfAvailableSeasons") as? Int,
+                    type: competitionObject.value(forKey: "type") as! String,
                     currentSeason: currentSeason,
-                    emblem: emblem
+                    emblem: competitionObject.value(forKey: "emblem") as? String
                 )
                 
                 competitions.append(competition)
@@ -104,11 +92,10 @@ class CompetitionStorage: LocalService {
         }
         
         return competitions
-    }
+}
     
     func deleteAllData() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CompetitionEntity")
-        
         do {
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
             try managedContext.execute(deleteRequest)

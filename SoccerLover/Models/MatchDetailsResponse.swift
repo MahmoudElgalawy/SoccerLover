@@ -13,7 +13,7 @@ struct MatchDetailsResponse: Codable{
 
 struct MatchDetails: Codable {
     let area: Area?
-    let competition: Competition2
+    let competition: Competition
     let season: SeasonModel
     let id: Int?
     let utcDate: String
